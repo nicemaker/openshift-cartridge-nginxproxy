@@ -3,7 +3,7 @@ Cartridge-Short-Name: nginxproxy
 Cartridge-Version: '1.0.1'
 Compatible-Versions:
   - '1.0.1'
-Cartridge-Vendor: Nicemaker
+Cartridge-Vendor: nicemaker
 Display-Name: Nginx Proxy
 Description: "Nginx is an HTTP and reverse proxy server, a mail proxy server, and a generic TCP/UDP proxy server"
 Version: '1.9.12'
