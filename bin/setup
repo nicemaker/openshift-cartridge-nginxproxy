@@ -1,0 +1,42 @@
+#!/bin/bash
+
+source $OPENSHIFT_CARTRIDGE_SDK_BASH
+
+
+src_dir = $OPENSHIFT_NGINXPROXY_DIR/tmp/
+bin_dir = $OPENSHIFT_NGINXPROXY_DIR/bin/
+mkdir -p bin_dir
+
+pcre_file=pcre-8.37.tar.gz
+pcre_url=http://sourceforge.net/projects/pcre/files/pcre/$pcre_ver/$pcre_file}
+
+nginx_file=nginx-1.4.4.tar.gz
+nginx_url=${NGINX_URL:-http://nginx.org/download/$nginx_file}
+
+
+
+mkdir -p $src_dir/pcre
+cd $src_dir
+echo    "First download, may take several minutes"
+echo -n "-----> Installing PCRE"
+curl -sOL $pcre_url
+tar zxf $pcre_file
+rm -f $pcre_file
+echo " done"
+
+
+mkdir -p $src_dir/nginx
+cd $src_dir
+echo    "       First download, may take several minutes"
+echo -n "-----> Installing Nginx 1.4.4"
+curl -sO $nginx_url
+tar zxf $nginx_file
+rm -f $nginx_file
+echo " done"
+
+
+cd $src_dir/nginx/
+./configure --with-pcre=$src_dir/pcre-$pcre_ver/ --with-http_ssl_module --prefix=$OPENSHIFT_NGINXPROXY_DIR
+make
+mv objs/nginx $bin_dir/nginx
+make clean

@@ -1,0 +1,7 @@
+snapshot_exclusions:
+- mydir/*
+processed_templates:
+- '**/*.erb'
+setup_rewritten:
+- bin/nginx
+- tmp/

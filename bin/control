@@ -1,0 +1,76 @@
+#!/bin/bash -e
+
+source $OPENSHIFT_CARTRIDGE_SDK_BASH
+
+
+export NGINX_EXEC="$OPENSHIFT_NGINXPROXY_DIR/bin/nginx"
+export NGINX_CONFIG_FILE="$OPENSHIFT_NGINXPROXY_DIR/conf.d/nginx.conf"
+export NGINX_PID_FILE="$OPENSHIFT_NGINXPROXY_DIR/run/nginx.pid"
+
+function _is_running() {
+  if [ -f $NGINX_PID_FILE ]; then
+    local zpid=$(cat $NGINX_PID_FILE 2> /dev/null)
+    local myid=$(id -u)
+    if `ps -opid,args --pid $zpid 2>&1 &> /dev/null`; then
+      return 0
+    fi
+  fi
+
+  return 1
+}
+
+function start() {
+  if _is_running; then
+    echo "Nginx is already running" 1>&2
+    return 0
+  fi
+
+  echo "Starting Nginx"
+  if [ -f "$NGINX_EXEC" ]; then
+      if [ -f "$OPENSHIFT_REPO_DIR/nginx.conf.erb" ]; then
+          oo-erb $OPENSHIFT_REPO_DIR/nginx.conf.erb > $OPENSHIFT_REPO_DIR/nginx.conf
+      fi
+      # nginx will always use the prefix defined at compile time unless an absolute path to the conf file is given
+      nohup "$NGINX_EXEC" -c "$NGINX_CONFIG_FILE" 2>&1
+      [ "$?" == "0" ] && wait_for_pid_file $NGINX_PID_FILE
+  else
+      echo "WARN: Could not find the compiled application version"
+  fi
+
+}
+
+function stop() {
+  echo "Stopping Nginx"
+  if [ -f "$NGINX_PID_FILE" ]; then
+      pid=`cat "$NGINX_PID_FILE" 2> /dev/null`
+      eval "'$NGINX_EXEC' -s stop"
+      wait_for_stop $pid
+  fi
+}
+
+function restart() {
+  stop
+  start
+}
+
+function status() {
+  local output=""
+  if output=$(curl http://$OPENSHIFT_RUBY_IP:$OPENSHIFT_RUBY_PORT/ &> /dev/null); then
+    client_result "Application is running"
+  else
+    client_result "Application is either stopped or inaccessible"
+  fi
+}
+
+function deploy() {}
+
+function reload(){}
+
+case "$1" in
+  start)             start ;;
+  stop)              stop ;;
+  restart | reload ) restart $1 ;;
+  status)            status ;;
+  deploy)            deploy ;;
+  *)                 exit 0
+esac

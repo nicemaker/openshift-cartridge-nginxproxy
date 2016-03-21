@@ -1,0 +1,29 @@
+Name: Nginx Proxy Server
+Cartridge-Short-Name: nginxproxy
+Cartridge-Version: '1.0.1'
+Compatible-Versions:
+  - '1.0.1'
+Cartridge-Vendor: Bjoern Newkirk Grambow
+Display-Name: Nginx Proxy
+Description: "Nginx is an HTTP and reverse proxy server, a mail proxy server, and a generic TCP/UDP proxy server"
+Version: '1.9.12'
+Versions:
+  - '1.9.12'
+License: "The Nginx License"
+License-Url: http://nginx.org/LICENSE
+Vendor: Nginx, Inc.
+Categories:
+  - web_framework
+  - web_proxy
+Website: http://nginx.org
+Help-Topics:
+  "Developer Center": https://www.openshift.com/developers
+Provides:
+  - nginx-1.9.12
+  - "nginx"
+
+Endpoints:
+  - Private-IP-Name: IP
+    Private-Port-Name: PORT
+    Private-Port: 8080
+    Public-Port-Name: PROXY_PORT

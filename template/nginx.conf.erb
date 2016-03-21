@@ -1,0 +1,11 @@
+server {
+    listen  <%= ENV['OPENSHIFT_NGINXPROXY_IP'] %>:<%= ENV['OPENSHIFT_NGINXPROXY_PORT'] %>;
+    root    <%= ENV['OPENSHIFT_REPO_DIR/'] %>;
+
+
+
+    location / {
+       index  index.html index.htm;
+       return 200 'gangnam style!';
+    }
+}
