@@ -1,5 +1,5 @@
-Name: Nginx Proxy Server
-Cartridge-Short-Name: nginxproxy
+Name: NginxProxy
+Cartridge-Short-Name: NGINXPROXY
 Cartridge-Version: '1.0.1'
 Compatible-Versions:
   - '1.0.1'
