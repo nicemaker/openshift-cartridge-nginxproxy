@@ -20,8 +20,8 @@ Website: http://nginx.org
 Scaling:
   Min: 1
   Max: 1
-Options:
-  primary: true
+Publishes: 
+Subscribes:
 Help-Topics:
   "Developer Center": https://www.openshift.com/developers
 Provides:
@@ -32,6 +32,11 @@ Endpoints:
     Private-Port-Name: PORT
     Private-Port:      8080
     Public-Port-Name:  PROXY_PORT
+    Options:
+      primary: true
+    Protocols:
+      - http
+      - ws
     Mappings:
       - Frontend:      ""
         Backend:       ""
