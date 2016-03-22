@@ -17,6 +17,9 @@ Categories:
   - web_proxy
   - service
 Website: http://nginx.org
+Scaling:
+  Min: 1
+  Max: -1
 Help-Topics:
   "Developer Center": https://www.openshift.com/developers
 Provides:
@@ -31,3 +34,7 @@ Endpoints:
       - Frontend:      ""
         Backend:       ""
         Options:       { websocket: false }
+      - Frontend: /health
+        Backend: ''
+        Options:
+          health: true
