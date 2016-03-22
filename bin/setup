@@ -10,7 +10,7 @@ mkdir -p bin_dir
 pcre_file=pcre-8.37.tar.gz
 pcre_url=http://sourceforge.net/projects/pcre/files/pcre/$pcre_ver/$pcre_file}
 
-nginx_file=nginx-1.4.4.tar.gz
+nginx_file=nginx-1.9.12.tar.gz
 nginx_url=${NGINX_URL:-http://nginx.org/download/$nginx_file}
 
 
@@ -28,7 +28,7 @@ echo " done"
 mkdir -p $src_dir/nginx
 cd $src_dir
 echo    "       First download, may take several minutes"
-echo -n "-----> Installing Nginx 1.4.4"
+echo -n "-----> Installing Nginx 1.9.12"
 curl -sO $nginx_url
 tar zxf $nginx_file
 rm -f $nginx_file

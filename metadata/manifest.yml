@@ -19,12 +19,14 @@ Categories:
 Website: http://nginx.org
 Scaling:
   Min: 1
-  Max: -1
+  Max: 1
+Options:
+  primary: true
 Help-Topics:
   "Developer Center": https://www.openshift.com/developers
 Provides:
   - nginx-1.9.12
-  - "nginx"
+  - nginx
 Endpoints:
   - Private-IP-Name:   IP
     Private-Port-Name: PORT
@@ -33,7 +35,7 @@ Endpoints:
     Mappings:
       - Frontend:      ""
         Backend:       ""
-        Options:       { websocket: false }
+        Options:       { websocket: true }
       - Frontend: /health
         Backend: ''
         Options:
