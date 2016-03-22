@@ -15,15 +15,19 @@ Vendor: Nginx, Inc.
 Categories:
   - web_framework
   - web_proxy
+  - service
 Website: http://nginx.org
 Help-Topics:
   "Developer Center": https://www.openshift.com/developers
 Provides:
   - nginx-1.9.12
   - "nginx"
-
 Endpoints:
-  - Private-IP-Name: IP
+  - Private-IP-Name:   IP
     Private-Port-Name: PORT
-    Private-Port: 8080
-    Public-Port-Name: PROXY_PORT
+    Private-Port:      8080
+    Public-Port-Name:  PROXY_PORT
+    Mappings:
+      - Frontend:      ""
+        Backend:       ""
+        Options:       { websocket: false }
